@@ -1,8 +1,8 @@
-'use strict';
-const { Model, DataTypes } = require('sequelize');
+'use strict'
+const { Model, DataTypes } = require('sequelize')
 
 class Opcao extends Model {
-  static init(sequelize) {
+  static init (sequelize) {
     super.init({
       mensagem: DataTypes.STRING
     }, {
@@ -13,7 +13,7 @@ class Opcao extends Model {
     })
   }
 
-  static associate(models) {
+  static associate (models) {
     this.belongsTo(models.Enquete, {
       foreignKey: {
         field: 'enquete_id',

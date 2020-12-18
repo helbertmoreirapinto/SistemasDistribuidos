@@ -1,8 +1,8 @@
-'use strict';
-const { Model, DataTypes } = require('sequelize');
+'use strict'
+const { Model, DataTypes } = require('sequelize')
 
 class Usuario extends Model {
-  static init(sequelize) {
+  static init (sequelize) {
     super.init({
       nome: DataTypes.STRING,
       login: DataTypes.STRING,
@@ -15,7 +15,8 @@ class Usuario extends Model {
       tableName: 'usuario'
     })
   }
-  static associate() {
+
+  static associate () {
   }
 }
 

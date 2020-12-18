@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 const sequelize = require('sequelize')
 module.exports = {
@@ -36,15 +36,15 @@ module.exports = {
       }
 
     }).then(() => {
-      return queryInterface.sequelize.query('ALTER TABLE "voto" ADD CONSTRAINT "voto_pkey" PRIMARY KEY ("usuario_id", "enquete_id")');
+      return queryInterface.sequelize.query('ALTER TABLE "voto" ADD CONSTRAINT "voto_pkey" PRIMARY KEY ("usuario_id", "enquete_id")')
     }).then(() => {
-      return queryInterface.sequelize.query('ALTER TABLE "voto" ADD CONSTRAINT "voto_usuario_fkey" FOREIGN KEY ("usuario_id") REFERENCES usuario("id") ON DELETE NO ACTION ON UPDATE CASCADE');
+      return queryInterface.sequelize.query('ALTER TABLE "voto" ADD CONSTRAINT "voto_usuario_fkey" FOREIGN KEY ("usuario_id") REFERENCES usuario("id") ON DELETE NO ACTION ON UPDATE CASCADE')
     }).then(() => {
-      return queryInterface.sequelize.query('ALTER TABLE "voto" ADD CONSTRAINT "voto_opcao_fkey" FOREIGN KEY ("enquete_id","opcao_id") REFERENCES opcao("enquete_id","id") ON DELETE CASCADE ON UPDATE CASCADE');
+      return queryInterface.sequelize.query('ALTER TABLE "voto" ADD CONSTRAINT "voto_opcao_fkey" FOREIGN KEY ("enquete_id","opcao_id") REFERENCES opcao("enquete_id","id") ON DELETE CASCADE ON UPDATE CASCADE')
     })
   },
 
   down: async (queryInterface) => {
     return queryInterface.dropTable('voto')
   }
-};
+}

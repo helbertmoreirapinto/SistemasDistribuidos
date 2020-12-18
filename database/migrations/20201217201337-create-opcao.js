@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 const sequelize = require('sequelize')
 module.exports = {
@@ -41,11 +41,11 @@ module.exports = {
         type: Sequelize.DATE
       }
     }).then(() => {
-      return queryInterface.sequelize.query('ALTER TABLE "opcao" ADD CONSTRAINT "opcao_pkey" PRIMARY KEY ("enquete_id", "id")');
+      return queryInterface.sequelize.query('ALTER TABLE "opcao" ADD CONSTRAINT "opcao_pkey" PRIMARY KEY ("enquete_id", "id")')
     })
   },
 
   down: async (queryInterface) => {
     return queryInterface.dropTable('opcao')
   }
-};
+}

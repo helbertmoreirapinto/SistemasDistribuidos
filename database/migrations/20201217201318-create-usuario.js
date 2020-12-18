@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 const sequelize = require('sequelize')
 module.exports = {
@@ -8,7 +8,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true,
-        allowNull: false,
+        allowNull: false
       },
       nome: {
         type: Sequelize.STRING,
@@ -46,4 +46,4 @@ module.exports = {
   down: async (queryInterface) => {
     return queryInterface.dropTable('usuario')
   }
-};
+}

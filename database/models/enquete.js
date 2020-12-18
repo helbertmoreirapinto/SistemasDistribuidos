@@ -1,19 +1,20 @@
-'use strict';
-const {Model, DataTypes} = require('sequelize');
+'use strict'
+const { Model, DataTypes } = require('sequelize')
 
 class Enquete extends Model {
-  static init(sequelize) {
+  static init (sequelize) {
     super.init({
       titulo: DataTypes.STRING,
-      ativo: DataTypes.BOOLEAN,
+      ativo: DataTypes.BOOLEAN
     }, {
       sequelize,
       paranoid: true,
       underscored: true,
-      tableName: 'enquete',
-    });
+      tableName: 'enquete'
+    })
   }
-  static associate() {
+
+  static associate () {
   }
 }
 

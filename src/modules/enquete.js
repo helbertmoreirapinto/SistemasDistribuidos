@@ -1,13 +1,12 @@
 const sequelize = require('../../database/index')
-const Enquete = require("../../database/models/enquete")
-const Opcao = require("../../database/models/opcao")
+const Enquete = require('../../database/models/enquete')
+const Opcao = require('../../database/models/opcao')
 const Voto = require('../../database/models/voto')
 
 const criarEnquete = async (enqueteData) => {
   const { titulo, optionValues = [] } = enqueteData
 
   return await sequelize.transaction(async tr => {
-
     const enquete = await Enquete.create({
       titulo
     }, { transaction: tr })
@@ -25,7 +24,6 @@ const criarEnquete = async (enqueteData) => {
 
     return enquete
   })
-
 }
 
 const encerrarEnquete = async (enqueteData) => {
@@ -53,21 +51,30 @@ const encerrarEnquete = async (enqueteData) => {
   })
 
   const opcaoMap = new Map()
-  opcaoList.forEach(opcao => opcaoMap[opcao.id] = { text: opcao.mensagem, count: 0 })
+  opcaoList.forEach((opcao) => {
+    opcaoMap[opcao.id] = {
+      text: opcao.mensagem,
+      count: 0
+    }
+  })
 
-  votoList.forEach(voto => opcaoMap[voto.opcaoId].count = opcaoMap[voto.opcaoId].count + 1)
-
+  votoList.forEach((voto) => {
+    opcaoMap[voto.opcaoId].count = opcaoMap[voto.opcaoId].count + 1
+  })
 
   return opcaoMap
 }
 
-const listarEnquete = async () => {
-  return await Enquete.findAll({
-    where: {
-      ativo: true
-    }
-  })
+const listarEnquete = async (userData) => {
+  const { administrador } = userData
 
+  const params = {}
+
+  if (!administrador) params.ativo = true
+
+  return await Enquete.findAll({
+    where: params
+  })
 }
 
 const listaOpcoes = async (enqueteData) => {

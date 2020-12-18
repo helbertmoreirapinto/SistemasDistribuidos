@@ -1,4 +1,4 @@
-const Usuario = require("../../database/models/usuario")
+const Usuario = require('../../database/models/usuario')
 const CryptoJS = require('crypto-js')
 
 const getToken = () => {
@@ -11,7 +11,7 @@ const getToken = () => {
 const criarUsuario = async (dadosUsuario) => {
   const { nome, login, senha } = dadosUsuario
   const token = getToken()
-  const senhaDB = CryptoJS.AES.encrypt(token, senha);
+  const senhaDB = CryptoJS.AES.encrypt(token, senha)
 
   await Usuario.create({
     nome,
@@ -37,7 +37,7 @@ const logar = async (userData) => {
   if (!userDB) throw new Error('Usuario/Senha inválidos!')
 
   const { token, senha: senhaBanco } = userDB
-  const decrypted = CryptoJS.AES.decrypt(senhaBanco, senha);
+  const decrypted = CryptoJS.AES.decrypt(senhaBanco, senha)
   const tokenDescrypted = decrypted.toString(CryptoJS.enc.Utf8)
 
   if (tokenDescrypted !== token) throw new Error('Usuario/Senha inválidos!')

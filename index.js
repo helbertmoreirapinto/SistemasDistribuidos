@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const middleware = require('./src/middleware/middleware')
-const port = process.env || 3333
+const port = process.env.PORT || 3333
 
 require('./database/index')
 

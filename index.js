@@ -2,7 +2,6 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const middleware = require('./src/middleware/middleware')
-const port = process.env.PORT || 3333
 
 require('./database/index')
 
@@ -79,6 +78,4 @@ app.post('/encerrarEnquete', async (req, res) => {
   }
 })
 
-app.listen(port, function () {
-  console.log(`Servidor em execução na porta: ${port}`)
-})
+app.listen(process.env.PORT || 3333)

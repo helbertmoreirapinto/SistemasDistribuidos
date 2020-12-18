@@ -14,8 +14,9 @@ const criarEnquete = async (enqueteData) => {
     const enqueteId = enquete.id
 
     const options = []
-    optionValues.forEach(option => {
+    optionValues.forEach((option, idx) => {
       option.enqueteId = enqueteId
+      option.id = idx + 1
       options.push(option)
     })
 

@@ -10,6 +10,7 @@ const votar = async (userData, votoData) => {
   if (!enquete) throw new Error('Enquete não encontrada!')
   if (!enquete.ativo) throw new Error('Enquete encerrada!')
 
+  Voto.removeAttribute('id')
   await Voto.create({
     usuarioId,
     enqueteId,

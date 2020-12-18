@@ -6,7 +6,6 @@ module.exports = {
     return queryInterface.createTable('opcao', {
       enquete_id: {
         type: Sequelize.INTEGER,
-        primaryKey: true,
         allowNull: false,
         references: {
           model: 'enquete',
@@ -18,8 +17,6 @@ module.exports = {
 
       id: {
         type: Sequelize.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
         allowNull: false
       },
 
@@ -43,6 +40,8 @@ module.exports = {
       deleted_at: {
         type: Sequelize.DATE
       }
+    }).then(() => {
+      return queryInterface.sequelize.query('ALTER TABLE "opcao" ADD CONSTRAINT "opcao_pkey" PRIMARY KEY ("enquete_id", "id")');
     })
   },
 

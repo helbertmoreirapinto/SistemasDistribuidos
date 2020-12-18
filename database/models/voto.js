@@ -1,15 +1,10 @@
 'use strict';
 
-const { Model, DataTypes } = require('sequelize');
+const { Model } = require('sequelize');
 
 class Voto extends Model {
   static init(sequelize) {
-    super.init({
-      opcaoId: {
-        type: DataTypes.INTEGER,
-        field: "opcao_id"
-      }
-    }, {
+    super.init({}, {
       sequelize,
       paranoid: true,
       underscored: true,
@@ -23,7 +18,6 @@ class Voto extends Model {
         field: 'usuario_id',
         name: 'usuarioId',
       },
-      primaryKey: true,
       as: 'usuario'
     })
 
@@ -32,8 +26,15 @@ class Voto extends Model {
         field: 'enquete_id',
         name: 'enqueteId'
       },
-      primaryKey: true,
       as: 'enquete'
+    })
+
+    this.hasMany(models.Opcao, {
+      foreignKey: {
+        field: 'opcao_id',
+        name: 'opcaoId'
+      },
+      as: 'opcao'
     })
   }
 }

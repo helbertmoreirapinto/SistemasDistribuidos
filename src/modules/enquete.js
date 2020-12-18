@@ -1,6 +1,7 @@
 const sequelize = require('../../database/index')
 const Enquete = require("../../database/models/enquete")
 const Opcao = require("../../database/models/opcao")
+const Voto = require('../../database/models/voto')
 
 const criarEnquete = async (enqueteData) => {
   const { titulo, optionValues = [] } = enqueteData
@@ -19,7 +20,7 @@ const criarEnquete = async (enqueteData) => {
       option.id = idx + 1
       options.push(option)
     })
-
+    console.log(options)
     await Opcao.bulkCreate(options, { transaction: tr })
 
     return enquete
@@ -29,7 +30,6 @@ const criarEnquete = async (enqueteData) => {
 
 const encerrarEnquete = async (enqueteData) => {
   const { enqueteId } = enqueteData
-
   await Enquete.update({
     ativo: false
   }, {
@@ -39,6 +39,12 @@ const encerrarEnquete = async (enqueteData) => {
   })
 
   // fazer um select na tabela voto com join em opcoes por id da enquete e retornar resultado da enquete
+  Voto.removeAttribute('id')
+  return await Voto.findAll({
+    where: {
+      enqueteId
+    }, include: ['opcao']
+  })
 }
 
 const listarEnquete = async () => {

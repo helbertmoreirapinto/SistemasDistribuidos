@@ -39,16 +39,26 @@ const encerrarEnquete = async (enqueteData) => {
     }
   })
 
+  Voto.removeAttribute('id')
   const votoList = await Voto.findAll({
     where: {
       enqueteId
     }
   })
 
-  console.log(votoList)
-  // fazer um select na tabela voto com join em opcoes por id da enquete e retornar resultado da enquete
+  const opcaoList = await Opcao.findAll({
+    where: {
+      enqueteId
+    }
+  })
 
-  return null
+  const opcaoMap = new Map()
+  opcaoList.forEach(opcao => opcaoMap[opcao.id] = { text: opcao.mensagem, count: 0 })
+
+  votoList.forEach(voto => opcaoMap[voto.opcaoId].count = opcaoMap[voto.opcaoId].count + 1)
+
+
+  return opcaoMap
 }
 
 const listarEnquete = async () => {

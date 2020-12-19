@@ -15,7 +15,7 @@ const enquete = require('./src/modules/enquete')
 
 app.post('/criarUsuario', async (req, res) => {
   try {
-    const user = await usuario.criarUsuario(req.body)
+    const user = await usuario.criarUsuario(req)
     res.status(200).send(user)
   } catch (error) {
     res.status(400).send(error.message)
@@ -24,7 +24,7 @@ app.post('/criarUsuario', async (req, res) => {
 
 app.post('/logar', async (req, res) => {
   try {
-    const user = await usuario.logar(req.body)
+    const user = await usuario.logar(req)
     res.status(200).send(user)
   } catch (error) {
     res.status(400).send(error.message)

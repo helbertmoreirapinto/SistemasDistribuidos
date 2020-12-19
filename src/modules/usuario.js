@@ -8,8 +8,8 @@ const getToken = () => {
   return token
 }
 
-const criarUsuario = async (dadosUsuario) => {
-  const { nome, login, senha } = dadosUsuario
+const criarUsuario = async (req) => {
+  const { nome, login, senha } = req.body
   const token = getToken()
   const senhaDB = CryptoJS.AES.encrypt(token, senha)
 
@@ -21,8 +21,8 @@ const criarUsuario = async (dadosUsuario) => {
   })
 }
 
-const logar = async (userData) => {
-  const { login, senha } = userData
+const logar = async (req) => {
+  const { login, senha } = req.body
 
   const userDB = await Usuario.findOne({
     where: { login }

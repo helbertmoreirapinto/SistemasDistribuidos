@@ -42,9 +42,7 @@ app.post('/criarEnquete', async (req, res) => {
 
 app.get('/listarEnquete', async (req, res) => {
   try {
-    req.context = {}
-    req.context.administrador = false
-    const enqueteList = await enquete.listarEnquete(req.context)
+    const enqueteList = await enquete.listarEnquete(req)
     res.status(200).send(enqueteList)
   } catch (error) {
     res.status(400).send(error.message)
@@ -53,7 +51,7 @@ app.get('/listarEnquete', async (req, res) => {
 
 app.post('/listarOpcoes', async (req, res) => {
   try {
-    const opcaoList = await enquete.listaOpcoes(req.body)
+    const opcaoList = await enquete.listaOpcoes(req)
     res.status(200).send(opcaoList)
   } catch (error) {
     res.status(400).send(error.message)
@@ -71,7 +69,7 @@ app.post('/votar', async (req, res) => {
 
 app.post('/encerrarEnquete', async (req, res) => {
   try {
-    const resultado = await enquete.encerrarEnquete(req.body)
+    const resultado = await enquete.encerrarEnquete(req)
     res.status(200).send(resultado)
   } catch (error) {
     res.status(400).send(error.message)

@@ -2,6 +2,7 @@ const sequelize = require('../../database/index')
 const Enquete = require('../../database/models/enquete')
 const Opcao = require('../../database/models/opcao')
 const Voto = require('../../database/models/voto')
+const ADM_USER_ID = 1
 
 const criarEnquete = async (req) => {
   const { titulo, optionValues = [] } = req.body
@@ -65,20 +66,20 @@ const encerrarEnquete = async (req) => {
   return opcaoMap
 }
 
-const listarEnquete = async (userData) => {
-  const { administrador } = userData
+const listarEnquete = async (req) => {
+  const { id: usuarioId } = req.context.userData
 
   const params = {}
 
-  if (!administrador) params.ativo = true
+  if (usuarioId !== ADM_USER_ID) params.ativo = true
 
   return await Enquete.findAll({
     where: params
   })
 }
 
-const listaOpcoes = async (enqueteData) => {
-  const { enqueteId } = enqueteData
+const listaOpcoes = async (req) => {
+  const { enqueteId } = req.body
   return await Opcao.findAll({
     where: {
       enqueteId

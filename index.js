@@ -51,7 +51,7 @@ app.get('/listarEnquete', async (req, res) => {
   }
 })
 
-app.get('/listarOpcoes', async (req, res) => {
+app.post('/listarOpcoes', async (req, res) => {
   try {
     const opcaoList = await enquete.listaOpcoes(req.body)
     res.status(200).send(opcaoList)

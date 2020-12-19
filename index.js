@@ -22,7 +22,7 @@ app.post('/criarUsuario', async (req, res) => {
   }
 })
 
-app.get('/logar', async (req, res) => {
+app.post('/logar', async (req, res) => {
   try {
     const user = await usuario.logar(req.body)
     res.status(200).send(user)

@@ -1,9 +1,9 @@
-const Enquete = require("../../database/models/enquete")
-const Voto = require("../../database/models/voto")
+const Enquete = require('../../database/models/enquete')
+const Voto = require('../../database/models/voto')
 
-const votar = async (userData, votoData) => {
-  const { enqueteId, opcaoId } = votoData
-  const { usuarioId } = userData
+const votar = async (req) => {
+  const { enqueteId, opcaoId } = req.body
+  const { id: usuarioId } = req.context.userData
 
   const enquete = await Enquete.findByPk(enqueteId)
 

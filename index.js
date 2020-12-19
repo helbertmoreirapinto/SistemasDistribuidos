@@ -33,7 +33,7 @@ app.post('/logar', async (req, res) => {
 
 app.post('/criarEnquete', async (req, res) => {
   try {
-    const enq = await enquete.criarEnquete(req.body)
+    const enq = await enquete.criarEnquete(req)
     res.status(200).send(enq)
   } catch (error) {
     res.status(400).send(error.message)
@@ -62,7 +62,7 @@ app.post('/listarOpcoes', async (req, res) => {
 
 app.post('/votar', async (req, res) => {
   try {
-    await voto.votar(req.body, req.body)
+    await voto.votar(req)
     res.status(200).send('Voto computado!')
   } catch (error) {
     res.status(400).send(error.message)

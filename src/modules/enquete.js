@@ -3,8 +3,8 @@ const Enquete = require('../../database/models/enquete')
 const Opcao = require('../../database/models/opcao')
 const Voto = require('../../database/models/voto')
 
-const criarEnquete = async (enqueteData) => {
-  const { titulo, optionValues = [] } = enqueteData
+const criarEnquete = async (req) => {
+  const { titulo, optionValues = [] } = req.body
 
   return await sequelize.transaction(async tr => {
     const enquete = await Enquete.create({
@@ -26,8 +26,8 @@ const criarEnquete = async (enqueteData) => {
   })
 }
 
-const encerrarEnquete = async (enqueteData) => {
-  const { enqueteId } = enqueteData
+const encerrarEnquete = async (req) => {
+  const { enqueteId } = req.body
 
   await Enquete.update({
     ativo: false

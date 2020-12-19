@@ -21,12 +21,6 @@ const criarUsuario = async (dadosUsuario) => {
   })
 }
 
-const atualizarUsuario = async () => {
-}
-
-const excluirUsuario = async () => {
-}
-
 const logar = async (userData) => {
   const { login, senha } = userData
 
@@ -47,7 +41,5 @@ const logar = async (userData) => {
 
 module.exports = {
   criarUsuario,
-  atualizarUsuario,
-  excluirUsuario,
   logar
 }

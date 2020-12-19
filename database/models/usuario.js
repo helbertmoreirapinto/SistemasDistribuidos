@@ -7,8 +7,7 @@ class Usuario extends Model {
       nome: DataTypes.STRING,
       login: DataTypes.STRING,
       senha: DataTypes.STRING,
-      token: DataTypes.STRING,
-      administrador: DataTypes.BOOLEAN
+      token: DataTypes.STRING
     }, {
       sequelize,
       paranoid: true,

@@ -27,10 +27,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      administrador: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false
-      },
       created_at: {
         type: Sequelize.DATE,
         defaultValue: sequelize.literal('NOW()'),

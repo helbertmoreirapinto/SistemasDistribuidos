@@ -37,7 +37,29 @@ const encerrarEnquete = async (req) => {
       id: enqueteId
     }
   })
+}
 
+const listarEnquete = async (req) => {
+  const { id: usuarioId } = req.context.userData
+
+  const params = {}
+
+  if (usuarioId !== ADM_USER_ID) params.ativo = true
+
+  return await Enquete.findAll({
+    where: params
+  })
+}
+
+const listaOpcoes = async (enqueteId) => {
+  return await Opcao.findAll({
+    where: {
+      enqueteId
+    }
+  })
+}
+
+const resultadoEnquete = async (enqueteId) => {
   Voto.removeAttribute('id')
   const votoList = await Voto.findAll({
     where: {
@@ -66,30 +88,10 @@ const encerrarEnquete = async (req) => {
   return opcaoMap
 }
 
-const listarEnquete = async (req) => {
-  const { id: usuarioId } = req.context.userData
-
-  const params = {}
-
-  if (usuarioId !== ADM_USER_ID) params.ativo = true
-
-  return await Enquete.findAll({
-    where: params
-  })
-}
-
-const listaOpcoes = async (req) => {
-  const { enqueteId } = req.body
-  return await Opcao.findAll({
-    where: {
-      enqueteId
-    }
-  })
-}
-
 module.exports = {
   criarEnquete,
   encerrarEnquete,
+  resultadoEnquete,
   listarEnquete,
   listaOpcoes
 }

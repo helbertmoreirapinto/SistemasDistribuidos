@@ -13,66 +13,78 @@ const usuario = require('./src/modules/usuario')
 const voto = require('./src/modules/voto')
 const enquete = require('./src/modules/enquete')
 
-app.post('/criarUsuario', async (req, res) => {
+app.get('/criarUsuario/:nome/:login/:pass', async (req, res) => {
   try {
-    const user = await usuario.criarUsuario(req)
-    res.status(200).send(user)
+    const { nome, login, pass: senha } = req.params
+    const user = await usuario.criarUsuario(nome, login, senha)
+    return res.status(200).send(user)
   } catch (error) {
-    res.status(400).send(error.message)
+    return res.status(400).send(error.message)
   }
 })
 
 app.post('/logar', async (req, res) => {
   try {
     const user = await usuario.logar(req)
-    res.status(200).send(user)
+    return res.status(200).send(user)
   } catch (error) {
-    res.status(400).send(error.message)
+    return res.status(400).send(error.message)
   }
 })
 
 app.post('/criarEnquete', async (req, res) => {
   try {
     const enq = await enquete.criarEnquete(req)
-    res.status(200).send(enq)
+    return res.status(200).send(enq)
   } catch (error) {
-    res.status(400).send(error.message)
+    return res.status(400).send(error.message)
   }
 })
 
 app.get('/listarEnquete', async (req, res) => {
   try {
     const enqueteList = await enquete.listarEnquete(req)
-    res.status(200).send(enqueteList)
+    return res.status(200).send(enqueteList)
   } catch (error) {
-    res.status(400).send(error.message)
+    return res.status(400).send(error.message)
   }
 })
 
-app.post('/listarOpcoes', async (req, res) => {
+app.get('/listarOpcoes/:enqueteId', async (req, res) => {
   try {
-    const opcaoList = await enquete.listaOpcoes(req)
-    res.status(200).send(opcaoList)
+    const { enqueteId } = req.params
+    const opcaoList = await enquete.listaOpcoes(enqueteId)
+    return res.status(200).send(opcaoList)
   } catch (error) {
-    res.status(400).send(error.message)
+    return res.status(400).send(error.message)
   }
 })
 
 app.post('/votar', async (req, res) => {
   try {
     await voto.votar(req)
-    res.status(200).send('Voto computado!')
+    return res.status(200).send('Voto computado!')
   } catch (error) {
-    res.status(400).send(error.message)
+    return res.status(400).send(error.message)
   }
 })
 
 app.post('/encerrarEnquete', async (req, res) => {
   try {
-    const resultado = await enquete.encerrarEnquete(req)
-    res.status(200).send(resultado)
+    await enquete.encerrarEnquete(req)
+    return res.status(200).send()
   } catch (error) {
-    res.status(400).send(error.message)
+    return res.status(400).send(error.message)
+  }
+})
+
+app.get('/resultadoEnquete/:enqueteId', async (req, res) => {
+  try {
+    const { enqueteId } = req.params
+    const resultado = await enquete.resultadoEnquete(enqueteId)
+    return res.status(200).send(resultado)
+  } catch (error) {
+    return res.status(400).send(error.message)
   }
 })
 

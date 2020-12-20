@@ -8,12 +8,11 @@ const getToken = () => {
   return token
 }
 
-const criarUsuario = async (req) => {
-  const { nome, login, senha } = req.body
+const criarUsuario = async (nome, login, senha) => {
   const token = getToken()
   const senhaDB = CryptoJS.AES.encrypt(token, senha)
 
-  await Usuario.create({
+  return await Usuario.create({
     nome,
     login,
     senha: senhaDB.toString(),

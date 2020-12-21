@@ -3,13 +3,15 @@ const USER_ADM_ID = 1
 
 module.exports = async (req, res, next) => {
   const rotaSelecionada = req.originalUrl
-  if ((!req.headers || !req.headers.usuarioid) && (['/criarUsuario', '/logar'].find(rota => rota === rotaSelecionada))) {
+  const arr = rotaSelecionada.split('/')
+
+  if ((!req.headers || !req.headers.usuarioid) && (['criarUsuario', 'logar'].find(rota => rota === arr[1]))) {
     return next()
   }
 
   const usuarioId = req.headers.usuarioid
   const usuario = await Usuario.findByPk(usuarioId)
-  if (!usuario || (['/criarEnquete', '/encerrarEnquete', '/resultadoEnquete'].find(rota => rota === rotaSelecionada) && usuario.id !== USER_ADM_ID)) {
+  if (!usuario || (['/criarEnquete', '/encerrarEnquete', '/resultadoEnquete'].find(rota => rota === arr[1]) && usuario.id !== USER_ADM_ID)) {
     res.status(400).send('Rota inválida para o usuário!')
     return new Error()
   }

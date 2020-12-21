@@ -30,12 +30,8 @@ const criarEnquete = async (req) => {
 const encerrarEnquete = async (req) => {
   const { enqueteId } = req.body
 
-  await Enquete.update({
-    ativo: false
-  }, {
-    where: {
-      id: enqueteId
-    }
+  await Enquete.update({ ativo: false }, {
+    where: { id: enqueteId }
   })
 }
 
@@ -85,7 +81,12 @@ const resultadoEnquete = async (enqueteId) => {
     opcaoMap[voto.opcaoId].count = opcaoMap[voto.opcaoId].count + 1
   })
 
-  return opcaoMap
+  const returnList = []
+  for (const item in opcaoMap) {
+    returnList.push(opcaoMap[item])
+  }
+
+  return returnList
 }
 
 module.exports = {
